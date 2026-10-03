@@ -30,6 +30,10 @@ const rootDirectory = path.resolve(serverDirectory, '..');
 const uploadsDirectory = path.resolve(process.env.UPLOADS_DIRECTORY || path.join(rootDirectory, 'uploads'));
 mkdirSync(uploadsDirectory, { recursive: true });
 
+app.get('/',(req, res) => {
+  res.send('API is running');
+};
+
 const app = express();
 const port = Number(process.env.PORT) || 3000;
 const requiresAdminSetupKey = process.env.NODE_ENV === 'production' || Boolean(process.env.ADMIN_SETUP_KEY);
@@ -736,3 +740,7 @@ app.use((error, _request, response, _next) => {
 
 if (!existsSync(path.join(rootDirectory, 'index.html'))) throw new Error('index.html was not found in the project root.');
 app.listen(port, () => console.log(`Janice Apartments API ready at http://localhost:${port}`));
+app.listen(port, '0.0.0.0' () =>{
+           console.log('server listening on port ${port}');
+});
+           
