@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: janice-apartments
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: janice-apartments-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JANICE_DATABASE_PATH
+        value: /var/data/janice.sqlite
+      - key: UPLOADS_DIRECTORY
+        value: /var/data/uploads
+      - key: ADMIN_SETUP_KEY
+        generateValue: true
